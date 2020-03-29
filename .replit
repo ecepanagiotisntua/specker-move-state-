@@ -1,0 +1,2 @@
+language = "cpp"
+run = "g++ -g3 -O0 move_state.cpp -o a.out"

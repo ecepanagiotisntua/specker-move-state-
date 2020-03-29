@@ -1,4 +1,7 @@
 #include <stdexcept>
+#include <iostream>
+
+using namespace std;
 
 class Move {
 
@@ -62,11 +65,11 @@ int Move::getTargetCoins() const {
 return targetc;
 }
 
-ostream& operator << (ostream &out, const Move &move){
-if (getTargetCoins() > 0)
-out << "takes " << getSourceCoins() << " coins from heap " << getSource() << " and puts " << getTargetCoins() << " coins to heap " << getTarget();
+ostream & operator << (ostream &out, const Move &move){
+if (move.getTargetCoins() > 0)
+out << "takes " << move.getSourceCoins() << " coins from heap " << move.getSource() << " and puts " << move.getTargetCoins() << " coins to heap " << move.getTarget();
 else
-out << "takes " << getSourceCoins() << " coins from heap " << getSource() << " and puts nothing";
+out << "takes " << move.getSourceCoins() << " coins from heap " << move.getSource() << " and puts nothing";
 return out;
 }
 
@@ -86,7 +89,7 @@ State::~State(){
 void State::next(const Move &move) throw (logic_error){
   if (move.getSource() < 0 || move.getSource() >= heaps) throw logic_error("invalid heap");
   if (move.getTarget() < 0 || move.getTarget() >= heaps) throw logic_error("invalid heap");
-  if (move.getSourceCoins() > coins[get.Source()] || move.getSourceCoins() < 0 || move.getTargetCoins > coins[move.getTarget()] || move.getTargetCoins() < 0) throw logic_error ("invalid heap");
+  if (move.getSourceCoins() > coins[move.getSource()] || move.getSourceCoins() < 0 || move.getTargetCoins() > coins[move.getTarget()] || move.getTargetCoins() < 0) throw logic_error ("invalid heap");
   coins[move.getSource()] -= move.getSourceCoins();
   coins[move.getTarget()] += move.getTargetCoins();
 }
@@ -110,9 +113,10 @@ int State::getCoins(int h) const throw(logic_error){
 }
 
 ostream & operator << (ostream &out, const State &state){
-  out << coins[0];
-  for (int i = 1; i < heaps; i++){
-    out << ", " << getCoins(i);
+  out << state.coins[0];
+  for (int i = 1; i < state.heaps; i++){
+    out << ", " << state.getCoins(i);
   }
   return out;
 }
+
