@@ -97,8 +97,9 @@ void State::next(const Move &move) throw (logic_error){
 bool State::winning() const{
   bool flag = true;
   for (int i = 0; i < heaps; i++){
-    if (coins[i] != 0) flag = false;
+    if (coins[i] != 0) {flag = false;
     break;
+    }
   }
   return flag;
 }
