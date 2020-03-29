@@ -89,7 +89,7 @@ State::~State(){
 void State::next(const Move &move) throw (logic_error){
   if (move.getSource() < 0 || move.getSource() >= heaps) throw logic_error("invalid heap");
   if (move.getTarget() < 0 || move.getTarget() >= heaps) throw logic_error("invalid heap");
-  if (move.getSourceCoins() > coins[move.getSource()] || move.getSourceCoins() < 0 || move.getTargetCoins() > coins[move.getTarget()] || move.getTargetCoins() < 0 || move.getTargetCoins() >= move.getSourceCoins()) throw logic_error ("invalid heap");
+  if (move.getSourceCoins() > coins[move.getSource()] || move.getSourceCoins() < 0 || move.getTargetCoins() < 0 || move.getTargetCoins() >= move.getSourceCoins()) throw logic_error ("invalid heap");
   coins[move.getSource()] -= move.getSourceCoins();
   coins[move.getTarget()] += move.getTargetCoins();
 }
